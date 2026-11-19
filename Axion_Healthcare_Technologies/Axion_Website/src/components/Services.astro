@@ -1,0 +1,20 @@
+---
+import Reveal from "./Reveal";
+import { site } from "../data/site";
+const { services } = site;
+---
+<section class="border-t border-ink/10 bg-white/50">
+  <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+    <Reveal client:visible className="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <h2 data-reveal-item class="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{services.heading}</h2>
+      <ul class="divide-y divide-ink/10 border-y border-ink/10">
+        {services.items.map((s) => (
+          <li data-reveal-item class="group grid gap-1 py-6 transition-all duration-300 hover:pl-3 sm:grid-cols-[1fr_1.4fr] sm:gap-8">
+            <h3 class="font-display text-xl tracking-tight transition-colors group-hover:text-accent">{s.title}</h3>
+            <p class="text-[15px] text-mute">{s.text}</p>
+          </li>
+        ))}
+      </ul>
+    </Reveal>
+  </div>
+</section>

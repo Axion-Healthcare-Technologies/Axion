@@ -1,0 +1,12 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+import { site } from "../data/site";
+const { size = "h-7", text = "text-lg" } = Astro.props;
+---
+<a href="/" class="inline-flex items-center gap-2.5" aria-label={site.brand}>
+  <Image src={logo} alt="" width={112} height={90} format="webp" class:list={[size, "w-auto"]} />
+  <span class:list={["font-display font-semibold tracking-tight", text]}>
+    <span class="sm:hidden">{site.short}</span><span class="hidden sm:inline">{site.brand}</span>
+  </span>
+</a>

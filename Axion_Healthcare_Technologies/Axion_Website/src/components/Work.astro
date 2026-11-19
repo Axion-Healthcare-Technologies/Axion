@@ -1,0 +1,26 @@
+---
+import Reveal from "./Reveal";
+import { site, contactHref } from "../data/site";
+const { work, projects } = site;
+---
+<section id="solutions" class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+  <Reveal client:visible>
+    <div data-reveal-item>
+      <h2 class="max-w-xl font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{work.heading}</h2>
+      <p class="mt-4 max-w-md text-mute">{work.intro}</p>
+    </div>
+    <div class="mt-14 grid gap-6 md:grid-cols-2">
+      {projects.map((p, i) => (
+        <article data-reveal-item class="group flex flex-col rounded-[24px] border border-ink/10 bg-white p-8 shadow-[0_24px_50px_-35px_rgba(11,27,51,.35)] transition duration-300 hover:-translate-y-1 hover:border-accent/40 sm:p-10">
+          <span class="font-display text-sm text-accent">0{i + 1}</span>
+          <h3 class="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">{p.name}</h3>
+          <p class="mt-4 text-[15px] leading-relaxed text-mute">{p.desc}</p>
+          <ul class="mt-6 flex flex-wrap gap-2">{p.tags.map((t) => <li class="rounded-full border border-ink/15 px-3 py-1 text-xs">{t}</li>)}</ul>
+          <a href={contactHref} class="group/link mt-auto inline-flex items-center gap-2 self-start border-b border-ink pb-0.5 pt-8 text-sm font-medium transition-colors hover:border-accent hover:text-accent">
+            {work.cta} <span aria-hidden="true" class="transition-transform group-hover/link:translate-x-1">→</span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </Reveal>
+</section>

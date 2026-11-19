@@ -1,0 +1,18 @@
+---
+import Reveal from "./Reveal";
+import { site } from "../data/site";
+const { why } = site;
+---
+<section class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+  <Reveal client:visible>
+    <h2 data-reveal-item class="max-w-2xl font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{why.heading}</h2>
+    <dl class="mt-16 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {why.items.map((w) => (
+        <div data-reveal-item class="border-t border-ink pt-5">
+          <dt class="font-display text-lg tracking-tight">{w.title}</dt>
+          <dd class="mt-2 text-[15px] leading-relaxed text-mute">{w.text}</dd>
+        </div>
+      ))}
+    </dl>
+  </Reveal>
+</section>

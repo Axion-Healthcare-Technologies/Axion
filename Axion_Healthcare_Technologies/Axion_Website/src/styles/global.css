@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --color-ink: #0B1B33;
+  --color-paper: #F3F6FA;
+  --color-accent: #1557E5;
+  --color-mute: #566A82;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+html { background: #F3F6FA; scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 4px; }
+
+/* Hero: CSS-only entrance so the headline paints immediately (best LCP). */
+@keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes settle { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 1s cubic-bezier(.2,.7,.1,1) both; }
+.settle { animation: settle .9s .7s cubic-bezier(.2,.7,.1,1) both; }
+
+/* Scroll reveal start state. Only applied when JS is on, so no-JS visitors still see everything. */
+.js [data-reveal-item] { opacity: 0; transform: translateY(24px); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .settle { animation: none; }
+  .js [data-reveal-item] { opacity: 1; transform: none; }
+  * { transition-duration: 0s !important; }
+}

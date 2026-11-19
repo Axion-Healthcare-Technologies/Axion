@@ -1,0 +1,80 @@
+---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import { site } from "../data/site";
+
+interface Props { title?: string; description?: string }
+const { title = site.seo.title, description = site.seo.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/og.jpg", Astro.site).href;
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.brand,
+  url: site.url,
+  email: site.contact.email,
+  ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
+  description,
+  image: ogImage,
+  logo: new URL("/favicon.png", Astro.site).href,
+  knowsAbout: ["Healthcare software", "Hospital management systems", "Telehealth", "Health data analytics"],
+  sameAs: [site.social.linkedin, site.social.facebook].filter(Boolean),
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.brand} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#F3F6FA" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
+    <slot />
+    <script is:inline>
+      // Fail-safe: if the reveal animation ever fails to start, show the content anyway after 2.5s.
+      (function () {
+        var els = document.querySelectorAll("[data-reveal-item]");
+        function show(e) { e.style.opacity = 1; e.style.transform = "none"; }
+        if (!("IntersectionObserver" in window)) { els.forEach(show); return; }
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (x) {
+            if (!x.isIntersecting) return;
+            io.unobserve(x.target);
+            setTimeout(function () { if (getComputedStyle(x.target).opacity === "0") show(x.target); }, 2500);
+          });
+        });
+        els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
+    <script>
+      import Lenis from "lenis";
+      // Smooth scrolling (skipped for reduced-motion). Lenis leaves native touch scrolling alone, so phones stay fast.
+      const w = window as unknown as { __lenis?: Lenis };
+      if (!w.__lenis && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const lenis = new Lenis({ anchors: true });
+        w.__lenis = lenis;
+        const raf = (t: number) => { lenis.raf(t); requestAnimationFrame(raf); };
+        requestAnimationFrame(raf);
+      }
+    </script>
+  </body>
+</html>

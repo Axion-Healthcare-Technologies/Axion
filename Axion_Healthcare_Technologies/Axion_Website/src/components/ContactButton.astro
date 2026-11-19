@@ -1,0 +1,20 @@
+---
+import { site, contactHref } from "../data/site";
+interface Props { label?: string; variant?: "dark" | "light" | "floating"; class?: string }
+const { label = "", variant = "dark", class: extra = "" } = Astro.props;
+const wa = site.contact.whatsapp;
+---
+{variant === "floating" ? (
+  wa ? (
+    <a href={wa} target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp"
+       class="fixed bottom-5 right-5 z-50 flex rounded-full bg-accent p-4 text-white shadow-xl shadow-accent/30 transition duration-300 hover:-translate-y-0.5 hover:bg-ink sm:bottom-8 sm:right-8">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-.9.8a4 4 0 0 1-2.3-2.3l.8-.9-1-2L9 8.5z"/></svg>
+    </a>
+  ) : null
+) : (
+  <a href={contactHref}
+     class:list={["group inline-flex items-center gap-3 rounded-full px-7 py-4 text-[15px] font-medium transition duration-300 hover:-translate-y-0.5", variant === "dark" ? "bg-accent text-white hover:bg-ink" : "bg-white text-ink hover:bg-paper", extra]}>
+    {label}
+    <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+  </a>
+)}
