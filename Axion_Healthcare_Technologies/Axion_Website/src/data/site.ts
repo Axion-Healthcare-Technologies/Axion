@@ -64,12 +64,12 @@ export const site = {
   services: {
     heading: "What we do",
     items: [
-      { title: "Healthcare Software Development", text: "Custom platforms and modules built for the way your facility actually works." },
-      { title: "Digital Transformation Consulting", text: "A practical roadmap for moving paper and legacy processes onto reliable digital systems." },
-      { title: "Implementation & Training", text: "Careful rollout and hands-on staff training, so new tools are adopted rather than ignored." },
-      { title: "Data Migration", text: "Safe, verified transfer of your existing records and data into the new system." },
-      { title: "Security & Privacy Readiness", text: "Access controls, audit trails and good data-handling practice built in from the start." },
-      { title: "Support & Maintenance", text: "Responsive support and regular updates so your systems stay dependable." },
+      { title: "Edge-Native Clinic Websites", text: "High-speed, custom-built web platforms engineered on modern edge networks to convert clinic visitors into booking patients." },
+      { title: "Automated Patient Booking Systems", text: "Seamless, friction-free appointment scheduling integrated into your clinic's daily workflow and staff schedules." },
+      { title: "Doctor Profile & Credential Showcases", text: "Structured, professional presentation of doctor qualifications, clinical specializations, and patient success stories to build instant trust." },
+      { title: "Google Maps & Local Search Optimization", text: "Technical setup and local SEO alignment to ensure your practice ranks prominently when patients search for nearby care." },
+      { title: "Managed Edge Hosting & Security", text: "Zero-latency global hosting on Cloudflare, complete with automatic SSL certificates, uptime monitoring, and enterprise protection." },
+      { title: "Ongoing Infrastructure Maintenance", text: "Continuous performance tuning, regular content updates, and responsive support so your digital presence stays reliable 24/7." },
     ],
   },
   why: {
