@@ -1,0 +1,76 @@
+---
+import Reveal from "./Reveal";
+import { site, contactHref } from "../data/site";
+const c = site.caseStudy;
+---
+<section id="featured" class="scroll-mt-6 bg-ink text-white">
+  <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+    <Reveal client:visible>
+      <div data-reveal-item class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-1.5 text-sm font-medium text-white/80"><span class="h-1.5 w-1.5 rounded-full bg-[#5B9BFF]" aria-hidden="true"></span>{c.eyebrow}</p>
+          <h2 class="mt-6 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{c.heading}</h2>
+          <p class="mt-4 max-w-xl text-lg leading-relaxed text-white/70">{c.sub}</p>
+        </div>
+        <a href={c.url} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-[15px] font-medium text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-paper">
+          {c.visit}
+          <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">↗</span>
+        </a>
+      </div>
+
+      <div class="mt-14 grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-14">
+        <!-- Browser preview -->
+        <a data-reveal-item href={c.url} target="_blank" rel="noopener noreferrer" aria-label={`${c.heading}: ${c.visit}`} class="group block overflow-hidden rounded-[20px] border border-white/15 bg-white/5 shadow-[0_40px_80px_-40px_rgba(0,0,0,.7)] transition duration-300 hover:-translate-y-1 hover:border-white/30">
+          <div class="flex items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3">
+            <span class="flex gap-1.5" aria-hidden="true"><i class="h-2.5 w-2.5 rounded-full bg-white/25"></i><i class="h-2.5 w-2.5 rounded-full bg-white/25"></i><i class="h-2.5 w-2.5 rounded-full bg-white/25"></i></span>
+            <span class="min-w-0 flex-1 truncate rounded-md bg-white/10 px-3 py-1 text-center text-xs text-white/70">🔒 {c.domain}</span>
+          </div>
+          {c.image ? (
+            <img src={c.image} alt={c.imageAlt} loading="lazy" decoding="async" class="block w-full" />
+          ) : (
+            <div class="bg-[#F4FAFA] p-5 text-[#0B2F31] sm:p-8" aria-hidden="true">
+              <div class="flex items-center justify-between gap-4">
+                <span class="font-display text-sm font-semibold text-[#0B5B5E]">Osmani Dental Aid</span>
+                <span class="hidden gap-4 text-[11px] text-[#0B2F31]/60 sm:flex">{c.mock.nav.map((n) => <span>{n}</span>)}</span>
+              </div>
+              <p class="mt-8 max-w-sm font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">{c.mock.headline}</p>
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#0B5B5E] px-4 py-2 text-xs font-medium text-white">{c.mock.buttons[0]}</span>
+                <span class="rounded-full border border-[#0B5B5E]/30 px-4 py-2 text-xs font-medium text-[#0B5B5E]">{c.mock.buttons[1]}</span>
+              </div>
+              <p class="mt-6 text-xs text-[#0B2F31]/70"><span class="text-[#E0A800]">★★★★★</span> {c.mock.rating}</p>
+              <div class="mt-8 grid grid-cols-3 gap-3">
+                <span class="h-16 rounded-xl bg-[#0B5B5E]/10 sm:h-20"></span><span class="h-16 rounded-xl bg-[#0B5B5E]/15 sm:h-20"></span><span class="h-16 rounded-xl bg-[#0B5B5E]/10 sm:h-20"></span>
+              </div>
+            </div>
+          )}
+        </a>
+
+        <!-- Details -->
+        <div>
+          <dl data-reveal-item class="grid grid-cols-3 gap-4 border-b border-white/15 pb-8">
+            {c.stats.map((s) => (
+              <div>
+                <dt class="sr-only">{s.label}</dt>
+                <dd class="font-display text-4xl font-semibold tracking-tight sm:text-5xl">{s.value}</dd>
+                <p class="mt-1 text-sm text-white/60" aria-hidden="true">{s.label}</p>
+              </div>
+            ))}
+          </dl>
+          <ul class="divide-y divide-white/10">
+            {c.delivered.map((d) => (
+              <li data-reveal-item class="py-5">
+                <h3 class="font-display text-lg tracking-tight">{d.title}</h3>
+                <p class="mt-1 text-[15px] leading-relaxed text-white/65">{d.text}</p>
+              </li>
+            ))}
+          </ul>
+          <ul data-reveal-item class="mt-4 flex flex-wrap gap-2">{c.tags.map((t) => <li class="rounded-full border border-white/20 px-3 py-1 text-xs text-white/80">{t}</li>)}</ul>
+          <a data-reveal-item href={contactHref} class="group/link mt-8 inline-flex items-center gap-2 border-b border-white pb-0.5 text-sm font-medium transition-colors hover:border-[#5B9BFF] hover:text-[#5B9BFF]">
+            {c.cta} <span aria-hidden="true" class="transition-transform group-hover/link:translate-x-1">→</span>
+          </a>
+        </div>
+      </div>
+    </Reveal>
+  </div>
+</section>

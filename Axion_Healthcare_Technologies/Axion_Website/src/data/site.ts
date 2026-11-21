@@ -24,6 +24,7 @@ export const site = {
     cta: "Request a Demo",
     links: [
       { label: "Home", href: "/" },
+      { label: "Our Work", href: "/#featured" },
       { label: "About Us", href: "/about" },
     ],
   },
@@ -33,6 +34,7 @@ export const site = {
     text: "Axion builds secure, simple digital tools for clinics, hospitals and care teams, so staff spend less time on admin and more time with patients.",
     primary: "Request a Demo",
     secondary: "Explore Solutions",
+    proof: { prefix: "Now live", label: "Osmani Dental Aid, Dhanmondi, Dhaka", href: "#featured" },
   },
   work: {
     heading: "Our solutions",
@@ -61,6 +63,35 @@ export const site = {
       tags: ["Labs & diagnostics", "Pharmacy", "Existing systems"],
     },
   ],
+  caseStudy: {
+    eyebrow: "Featured project",
+    heading: "Osmani Dental Aid",
+    sub: "A professor-led prosthodontic clinic in Dhanmondi, Dhaka, now with a fast, trust-building website that turns searches into booked appointments.",
+    url: "https://osmanidentalaid.com",
+    domain: "osmanidentalaid.com",
+    visit: "Visit the live website",
+    cta: "Want a website like this?",
+    image: "", // OPTIONAL: add a real screenshot to /public (e.g. "/osmani-dental-aid.jpg") and put its path here. Empty = stylised preview.
+    imageAlt: "Osmani Dental Aid website homepage",
+    stats: [
+      { value: "8", label: "Treatments showcased" },
+      { value: "3", label: "Ways to book" },
+      { value: "7", label: "Patient-journey pages" },
+    ],
+    delivered: [
+      { title: "Edge-native clinic website", text: "A custom-built, multi-page site covering treatments, the doctor, gallery, reviews, FAQ and location, all in one clear patient journey." },
+      { title: "Frictionless booking", text: "WhatsApp, an online slot calendar and click-to-call, repeated at every decision point, plus a dedicated emergency-care banner." },
+      { title: "Doctor credentials that build trust", text: "Qualifications, 33+ years of experience, a COVID-19 frontline story and a featured clinical case presented in a structured, credible way." },
+      { title: "Local search and Maps", text: "Embedded Google Maps, search-ready page titles and descriptions, and a neighbourhood FAQ so nearby patients can find the clinic." },
+    ],
+    tags: ["Clinic website", "Online booking", "Doctor profile", "Google Maps & local SEO", "Edge hosting"],
+    mock: {
+      headline: "Best dental clinic in Dhaka. Pain free treatment.",
+      buttons: ["Book on WhatsApp", "Book a Slot"],
+      rating: "4.9 on Google · 197 reviews",
+      nav: ["Treatments", "Doctor", "Reviews", "Location"],
+    },
+  },
   services: {
     heading: "What we do",
     items: [
