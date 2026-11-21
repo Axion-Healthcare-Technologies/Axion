@@ -2,11 +2,14 @@
 import { Image } from "astro:assets";
 import logo from "../assets/logo.png";
 import { site } from "../data/site";
-const { size = "h-7", text = "text-lg" } = Astro.props;
+// size: icon height | text: "Axion" wordmark size | sub: descriptor size
+const { size = "h-9 sm:h-10", text = "text-[1.7rem] sm:text-[1.9rem]", sub = "text-[8px] sm:text-[9px]" } = Astro.props;
+const descriptor = site.brand.replace(site.short, "").trim(); // "Healthcare Technologies"
 ---
-<a href="/" class="inline-flex items-center gap-2.5" aria-label={site.brand}>
-  <Image src={logo} alt="" width={112} height={90} format="webp" class:list={[size, "w-auto"]} />
-  <span class:list={["font-display font-semibold tracking-tight", text]}>
-    <span class="sm:hidden">{site.short}</span><span class="hidden sm:inline">{site.brand}</span>
+<a href="/" class="group inline-flex items-center gap-3" aria-label={site.brand}>
+  <Image src={logo} alt="" width={112} height={90} format="webp" class:list={[size, "w-auto shrink-0 transition-transform duration-300 group-hover:scale-105"]} />
+  <span class="flex flex-col" aria-hidden="true">
+    <span class:list={["font-display font-bold leading-[0.9] tracking-[-0.03em]", text]}>{site.short}</span>
+    <span class:list={["mt-[5px] font-display font-medium uppercase leading-none tracking-[0.2em] opacity-60", sub]}>{descriptor}</span>
   </span>
 </a>
