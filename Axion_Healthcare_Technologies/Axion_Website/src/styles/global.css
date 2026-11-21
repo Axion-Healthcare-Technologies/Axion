@@ -32,3 +32,8 @@ body {
   .js [data-reveal-item] { opacity: 1; transform: none; }
   * { transition-duration: 0s !important; }
 }
+
+/* Case study: slow, subtle float on the phone preview. */
+@keyframes drift { 0%,100% { transform: translateY(40px); } 50% { transform: translateY(28px); } }
+.drift { animation: drift 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .drift { animation: none; transform: translateY(40px); } }

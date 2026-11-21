@@ -2,73 +2,133 @@
 import Reveal from "./Reveal";
 import { site, contactHref } from "../data/site";
 const c = site.caseStudy;
+const m = c.mock;
 ---
-<section id="featured" class="scroll-mt-6 bg-ink text-white">
+<section id="featured" class="scroll-mt-6 border-t border-ink/10">
   <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
     <Reveal client:visible>
-      <div data-reveal-item class="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <p class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-1.5 text-sm font-medium text-white/80"><span class="h-1.5 w-1.5 rounded-full bg-[#5B9BFF]" aria-hidden="true"></span>{c.eyebrow}</p>
-          <h2 class="mt-6 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{c.heading}</h2>
-          <p class="mt-4 max-w-xl text-lg leading-relaxed text-white/70">{c.sub}</p>
-        </div>
-        <a href={c.url} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-[15px] font-medium text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-paper">
-          {c.visit}
-          <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">↗</span>
-        </a>
+      <!-- Editorial header -->
+      <div data-reveal-item class="flex items-center justify-between border-b border-ink/15 pb-5 text-sm">
+        <span class="font-medium">{c.label}</span>
+        <span class="font-display text-mute">{c.index} / Featured</span>
       </div>
 
-      <div class="mt-14 grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-14">
-        <!-- Browser preview -->
-        <a data-reveal-item href={c.url} target="_blank" rel="noopener noreferrer" aria-label={`${c.heading}: ${c.visit}`} class="group block overflow-hidden rounded-[20px] border border-white/15 bg-white/5 shadow-[0_40px_80px_-40px_rgba(0,0,0,.7)] transition duration-300 hover:-translate-y-1 hover:border-white/30">
-          <div class="flex items-center gap-3 border-b border-white/10 bg-white/5 px-4 py-3">
-            <span class="flex gap-1.5" aria-hidden="true"><i class="h-2.5 w-2.5 rounded-full bg-white/25"></i><i class="h-2.5 w-2.5 rounded-full bg-white/25"></i><i class="h-2.5 w-2.5 rounded-full bg-white/25"></i></span>
-            <span class="min-w-0 flex-1 truncate rounded-md bg-white/10 px-3 py-1 text-center text-xs text-white/70">🔒 {c.domain}</span>
+      <div data-reveal-item class="mt-10 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+        <h2 class="font-display text-[clamp(2.6rem,7vw,6rem)] font-semibold leading-[1] tracking-[-0.035em]">{c.client}</h2>
+        <p class="max-w-md text-lg leading-relaxed text-mute lg:justify-self-end">{c.sub}</p>
+      </div>
+
+      <dl data-reveal-item class="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-y border-ink/10 py-6 md:grid-cols-4">
+        {c.meta.map((i) => (
+          <div>
+            <dt class="text-xs uppercase tracking-[0.14em] text-mute">{i.k}</dt>
+            <dd class="mt-1.5 font-display text-[17px] tracking-tight">{i.v}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <!-- Showcase stage -->
+      <a data-reveal-item href={c.url} target="_blank" rel="noopener noreferrer" aria-label={`${c.client}: ${c.visit}`}
+         class="group relative mt-10 block h-[390px] overflow-hidden rounded-[28px] bg-ink px-5 pt-10 shadow-[0_50px_90px_-50px_rgba(11,27,51,.75)] sm:h-[560px] sm:rounded-[36px] sm:px-14 sm:pt-16 lg:h-[640px]"
+         style="background-image: radial-gradient(120% 90% at 85% 0%, rgba(21,87,229,.55), transparent 55%), radial-gradient(90% 80% at 0% 100%, rgba(11,91,94,.75), transparent 60%);">
+        <span class="absolute right-5 top-5 z-20 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur transition group-hover:bg-white group-hover:text-ink sm:right-8 sm:top-8 sm:text-sm">
+          {c.visit} <span aria-hidden="true">↗</span>
+        </span>
+
+        <!-- Desktop -->
+        <div class="relative mx-auto max-w-[920px] overflow-hidden rounded-t-xl border border-white/20 bg-white shadow-[0_30px_80px_-20px_rgba(0,0,0,.6)] transition duration-500 group-hover:-translate-y-2">
+          <div class="flex items-center gap-3 border-b border-ink/10 bg-[#EEF1F5] px-4 py-2.5">
+            <span class="flex gap-1.5" aria-hidden="true"><i class="h-2.5 w-2.5 rounded-full bg-[#FF5F57]"></i><i class="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]"></i><i class="h-2.5 w-2.5 rounded-full bg-[#28C840]"></i></span>
+            <span class="min-w-0 flex-1 truncate rounded-md bg-white px-3 py-1 text-center text-[11px] text-ink/60">{c.domain}</span>
           </div>
           {c.image ? (
             <img src={c.image} alt={c.imageAlt} loading="lazy" decoding="async" class="block w-full" />
           ) : (
-            <div class="bg-[#F4FAFA] p-5 text-[#0B2F31] sm:p-8" aria-hidden="true">
-              <div class="flex items-center justify-between gap-4">
-                <span class="font-display text-sm font-semibold text-[#0B5B5E]">Osmani Dental Aid</span>
-                <span class="hidden gap-4 text-[11px] text-[#0B2F31]/60 sm:flex">{c.mock.nav.map((n) => <span>{n}</span>)}</span>
+            <div class="text-[#0B2F31]" aria-hidden="true">
+              <div class="bg-[#0B5B5E] px-4 py-1.5 text-center text-[9px] text-white sm:text-[11px]">{m.bar}</div>
+              <div class="flex items-center justify-between gap-4 border-b border-[#0B5B5E]/10 bg-white px-4 py-3 sm:px-8">
+                <div class="leading-tight"><p class="font-display text-[11px] font-semibold text-[#0B5B5E] sm:text-sm">{m.brand}</p><p class="hidden text-[9px] text-[#0B2F31]/55 sm:block">{m.doctor}</p></div>
+                <div class="hidden gap-4 text-[10px] text-[#0B2F31]/65 md:flex">{m.nav.map((n) => <span>{n}</span>)}</div>
+                <span class="rounded-full bg-[#0B5B5E] px-3 py-1 text-[9px] font-medium text-white sm:text-[10px]">{m.buttons[1]}</span>
               </div>
-              <p class="mt-8 max-w-sm font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">{c.mock.headline}</p>
-              <div class="mt-6 flex flex-wrap gap-2">
-                <span class="rounded-full bg-[#0B5B5E] px-4 py-2 text-xs font-medium text-white">{c.mock.buttons[0]}</span>
-                <span class="rounded-full border border-[#0B5B5E]/30 px-4 py-2 text-xs font-medium text-[#0B5B5E]">{c.mock.buttons[1]}</span>
+              <div class="grid gap-6 bg-[#F2F9F9] px-4 py-8 sm:grid-cols-[1.2fr_1fr] sm:px-8 sm:py-12">
+                <div>
+                  <p class="font-display text-xl font-semibold leading-[1.05] tracking-tight sm:text-4xl">{m.headline}</p>
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    <span class="rounded-full bg-[#0B5B5E] px-3.5 py-1.5 text-[10px] font-medium text-white sm:text-xs">{m.buttons[0]}</span>
+                    <span class="rounded-full border border-[#0B5B5E]/30 px-3.5 py-1.5 text-[10px] font-medium text-[#0B5B5E] sm:text-xs">{m.buttons[1]}</span>
+                  </div>
+                  <p class="mt-4 text-[10px] text-[#0B2F31]/70 sm:text-xs"><span class="text-[#E0A800]">★★★★★</span> {m.rating}</p>
+                </div>
+                <div class="hidden rounded-2xl bg-gradient-to-br from-[#0B5B5E]/25 to-[#0B5B5E]/5 sm:block"></div>
               </div>
-              <p class="mt-6 text-xs text-[#0B2F31]/70"><span class="text-[#E0A800]">★★★★★</span> {c.mock.rating}</p>
-              <div class="mt-8 grid grid-cols-3 gap-3">
-                <span class="h-16 rounded-xl bg-[#0B5B5E]/10 sm:h-20"></span><span class="h-16 rounded-xl bg-[#0B5B5E]/15 sm:h-20"></span><span class="h-16 rounded-xl bg-[#0B5B5E]/10 sm:h-20"></span>
+              <div class="grid grid-cols-2 gap-3 bg-white px-4 py-6 sm:grid-cols-4 sm:px-8 sm:py-8">
+                {m.treatments.map((t) => (
+                  <div class="rounded-xl border border-[#0B5B5E]/10 p-3">
+                    <div class="h-12 rounded-lg bg-[#0B5B5E]/10 sm:h-16"></div>
+                    <p class="mt-2 font-display text-[10px] sm:text-xs">{t}</p>
+                  </div>
+                ))}
               </div>
             </div>
           )}
-        </a>
+        </div>
 
-        <!-- Details -->
-        <div>
-          <dl data-reveal-item class="grid grid-cols-3 gap-4 border-b border-white/15 pb-8">
-            {c.stats.map((s) => (
-              <div>
-                <dt class="sr-only">{s.label}</dt>
-                <dd class="font-display text-4xl font-semibold tracking-tight sm:text-5xl">{s.value}</dd>
-                <p class="mt-1 text-sm text-white/60" aria-hidden="true">{s.label}</p>
+        <!-- Phone -->
+        <div class="drift absolute bottom-0 right-4 z-10 w-[104px] sm:right-14 sm:w-[190px] lg:right-24 lg:w-[210px]">
+          <div class="overflow-hidden rounded-[22px] border-[5px] border-[#0a0f1a] bg-white shadow-[0_30px_60px_-15px_rgba(0,0,0,.7)] sm:rounded-[34px] sm:border-[7px]">
+            {c.mobileImage ? (
+              <img src={c.mobileImage} alt={c.mobileAlt} loading="lazy" decoding="async" class="block w-full" />
+            ) : (
+              <div class="aspect-[9/17] bg-[#F2F9F9] text-[#0B2F31]" aria-hidden="true">
+                <div class="bg-[#0B5B5E] py-1 text-center text-[5px] text-white sm:text-[7px]">Emergency care available</div>
+                <div class="flex items-center justify-between bg-white px-2.5 py-2"><span class="font-display text-[7px] font-semibold text-[#0B5B5E] sm:text-[10px]">{m.brand}</span><span class="h-1.5 w-3 rounded bg-[#0B5B5E]/60 sm:h-2 sm:w-4"></span></div>
+                <div class="px-2.5 pt-4 sm:px-3.5 sm:pt-6">
+                  <p class="font-display text-[9px] font-semibold leading-[1.1] tracking-tight sm:text-[15px]">{m.headline}</p>
+                  <span class="mt-3 block rounded-full bg-[#0B5B5E] py-1 text-center text-[5px] font-medium text-white sm:py-1.5 sm:text-[8px]">{m.buttons[0]}</span>
+                  <span class="mt-1.5 block rounded-full border border-[#0B5B5E]/30 py-1 text-center text-[5px] font-medium text-[#0B5B5E] sm:py-1.5 sm:text-[8px]">{m.buttons[1]}</span>
+                  <div class="mt-4 h-10 rounded-lg bg-[#0B5B5E]/12 sm:h-16"></div>
+                </div>
+                <div class="mt-3 grid grid-cols-2 gap-1 px-2.5 sm:px-3.5"><span class="rounded-full bg-[#0B5B5E] py-1 text-center text-[5px] text-white sm:text-[8px]">{m.mobileBar[0]}</span><span class="rounded-full bg-[#1FA855] py-1 text-center text-[5px] text-white sm:text-[8px]">{m.mobileBar[1]}</span></div>
+              </div>
+            )}
+          </div>
+        </div>
+      </a>
+
+      <!-- Facts + what shipped -->
+      <div class="mt-16 grid gap-14 lg:grid-cols-[0.8fr_1.6fr] lg:gap-20">
+        <div data-reveal-item>
+          <p class="text-xs uppercase tracking-[0.14em] text-mute">At a glance</p>
+          <dl class="mt-6 grid grid-cols-3 gap-4 lg:grid-cols-1 lg:gap-8">
+            {c.facts.map((f) => (
+              <div class="lg:flex lg:items-baseline lg:gap-5 lg:border-b lg:border-ink/10 lg:pb-6">
+                <dd class="font-display text-5xl font-semibold tracking-tight text-accent sm:text-6xl">{f.value}</dd>
+                <dt class="mt-1 text-sm text-mute">{f.label}</dt>
               </div>
             ))}
           </dl>
-          <ul class="divide-y divide-white/10">
+        </div>
+        <div>
+          <p data-reveal-item class="text-xs uppercase tracking-[0.14em] text-mute">What we shipped</p>
+          <ul class="mt-6 divide-y divide-ink/10 border-y border-ink/10">
             {c.delivered.map((d) => (
-              <li data-reveal-item class="py-5">
-                <h3 class="font-display text-lg tracking-tight">{d.title}</h3>
-                <p class="mt-1 text-[15px] leading-relaxed text-white/65">{d.text}</p>
+              <li data-reveal-item class="group/row grid gap-1 py-7 transition-all duration-300 hover:pl-3 sm:grid-cols-[3rem_1fr_1.3fr] sm:gap-6">
+                <span class="font-display text-sm text-accent">{d.n}</span>
+                <h3 class="font-display text-xl tracking-tight transition-colors group-hover/row:text-accent">{d.title}</h3>
+                <p class="text-[15px] leading-relaxed text-mute">{d.text}</p>
               </li>
             ))}
           </ul>
-          <ul data-reveal-item class="mt-4 flex flex-wrap gap-2">{c.tags.map((t) => <li class="rounded-full border border-white/20 px-3 py-1 text-xs text-white/80">{t}</li>)}</ul>
-          <a data-reveal-item href={contactHref} class="group/link mt-8 inline-flex items-center gap-2 border-b border-white pb-0.5 text-sm font-medium transition-colors hover:border-[#5B9BFF] hover:text-[#5B9BFF]">
-            {c.cta} <span aria-hidden="true" class="transition-transform group-hover/link:translate-x-1">→</span>
-          </a>
+          <div data-reveal-item class="mt-8 flex flex-wrap items-center justify-between gap-6">
+            <ul class="flex flex-wrap gap-2">{c.tags.map((t) => <li class="rounded-full border border-ink/15 px-3 py-1 text-xs">{t}</li>)}</ul>
+            <div class="flex flex-wrap items-center gap-6">
+              <a href={c.url} target="_blank" rel="noopener noreferrer" class="text-sm font-medium underline decoration-ink/30 underline-offset-8 transition-colors hover:text-accent hover:decoration-accent">{c.visit} ↗</a>
+              <a href={contactHref} class="group/cta inline-flex items-center gap-3 rounded-full bg-accent px-6 py-3.5 text-[15px] font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-ink">
+                {c.cta} <span aria-hidden="true" class="transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </Reveal>
