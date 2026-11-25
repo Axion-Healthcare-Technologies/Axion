@@ -3,13 +3,86 @@ import Logo from "./Logo.astro";
 import { site, contactHref } from "../data/site";
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
-<header class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-6 sm:px-8">
+<header data-site-header class="relative z-40 mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8 sm:py-6">
   <Logo />
-  <nav aria-label="Main" class="flex items-center gap-4 text-sm font-medium sm:gap-8">
+
+  <!-- Desktop / tablet navigation -->
+  <nav aria-label="Main" class="hidden items-center gap-8 text-sm font-medium md:flex">
     {site.nav.links.map((l) => (
       <a href={l.href} aria-current={path === l.href ? "page" : undefined}
-         class="py-2 transition-colors hover:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent aria-[current=page]:underline-offset-8">{l.label}</a>
+         class="whitespace-nowrap py-2 transition-colors hover:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent aria-[current=page]:underline-offset-8">{l.label}</a>
     ))}
-    <a href={contactHref} class="hidden rounded-full bg-accent px-5 py-2.5 text-white transition-colors hover:bg-ink sm:inline-block">{site.nav.cta}</a>
+    <a href={contactHref} class="whitespace-nowrap rounded-full bg-accent px-5 py-2.5 text-white transition-colors hover:bg-ink">{site.nav.cta}</a>
   </nav>
+
+  <!-- Mobile menu button -->
+  <button type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"
+          class="relative -mr-2 flex h-11 w-11 items-center justify-center rounded-full text-ink transition-colors hover:bg-ink/5 md:hidden">
+    <span class="sr-only" data-menu-label>Menu</span>
+    <span aria-hidden="true" class="relative block h-[14px] w-[22px]">
+      <span data-bar="top" class="absolute left-0 top-0 block h-[2px] w-full rounded bg-current transition-transform duration-300"></span>
+      <span data-bar="mid" class="absolute left-0 top-1/2 block h-[2px] w-full -translate-y-1/2 rounded bg-current transition-opacity duration-200"></span>
+      <span data-bar="bot" class="absolute bottom-0 left-0 block h-[2px] w-full rounded bg-current transition-transform duration-300"></span>
+    </span>
+  </button>
+
+  <!-- Mobile menu panel -->
+  <div id="mobile-menu" data-menu-panel hidden
+       class="absolute inset-x-5 top-full z-50 origin-top rounded-3xl border border-ink/10 bg-white p-3 shadow-2xl shadow-ink/10 sm:inset-x-8 md:hidden">
+    <nav aria-label="Mobile">
+      <ul class="flex flex-col">
+        {site.nav.links.map((l) => (
+          <li>
+            <a href={l.href} aria-current={path === l.href ? "page" : undefined}
+               class="flex min-h-[52px] items-center justify-between rounded-2xl px-4 text-lg font-medium transition-colors hover:bg-paper aria-[current=page]:bg-paper aria-[current=page]:text-accent">
+              {l.label}
+              <span aria-hidden="true" class="text-mute">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href={contactHref}
+         class="mt-2 flex min-h-[52px] items-center justify-center rounded-full bg-accent px-6 text-[15px] font-medium text-white transition-colors hover:bg-ink">{site.nav.cta}</a>
+    </nav>
+  </div>
 </header>
+
+<script>
+  const q = <T extends HTMLElement>(sel: string) => document.querySelector<T>(sel);
+
+  function setMenu(open: boolean) {
+    const btn = q<HTMLButtonElement>("[data-menu-button]");
+    const panel = q("[data-menu-panel]");
+    if (!btn || !panel) return;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    panel.hidden = !open;
+    const top = btn.querySelector<HTMLElement>('[data-bar="top"]')!;
+    const mid = btn.querySelector<HTMLElement>('[data-bar="mid"]')!;
+    const bot = btn.querySelector<HTMLElement>('[data-bar="bot"]')!;
+    top.style.transform = open ? "translateY(6px) rotate(45deg)" : "";
+    bot.style.transform = open ? "translateY(-6px) rotate(-45deg)" : "";
+    mid.style.opacity = open ? "0" : "";
+  }
+
+  // The header is re-rendered on every client-side navigation, so bind its own elements each time.
+  document.addEventListener("astro:page-load", () => {
+    const btn = q<HTMLButtonElement>("[data-menu-button]");
+    const panel = q("[data-menu-panel]");
+    if (!btn || !panel) return;
+    btn.addEventListener("click", () => setMenu(panel.hidden));
+    panel.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  });
+
+  // Page-wide listeners are registered once (this script runs once), and look elements up at event time.
+  document.addEventListener("keydown", (e) => {
+    const panel = q("[data-menu-panel]");
+    if (e.key === "Escape" && panel && !panel.hidden) { setMenu(false); q("[data-menu-button]")?.focus(); }
+  });
+  document.addEventListener("click", (e) => {
+    const header = q("[data-site-header]");
+    const panel = q("[data-menu-panel]");
+    if (header && panel && !panel.hidden && !header.contains(e.target as Node)) setMenu(false);
+  });
+  matchMedia("(min-width: 768px)").addEventListener("change", (m) => { if (m.matches) setMenu(false); });
+</script>

@@ -1,7 +1,7 @@
 ---
 import Reveal from "./Reveal";
 import ContactButton from "./ContactButton.astro";
-import { site } from "../data/site";
+import { site, contactHref } from "../data/site";
 const { cta } = site;
 ---
 <section id="contact" class="mx-auto max-w-7xl px-5 pb-24 sm:px-8 sm:pb-32">
@@ -10,6 +10,7 @@ const { cta } = site;
       <h2 class="max-w-3xl font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">{cta.heading}</h2>
       <p class="mt-6 max-w-lg text-paper/70">{cta.text}</p>
       <ContactButton variant="light" label={cta.button} class="mt-10" />
+      <p class="mt-6 text-sm text-paper/60 [overflow-wrap:anywhere]">{cta.emailPrefix} <a href={contactHref} class="font-medium text-paper underline decoration-paper/40 underline-offset-4 transition-colors hover:decoration-paper">{site.contact.email}</a></p>
     </div>
   </Reveal>
 </section>

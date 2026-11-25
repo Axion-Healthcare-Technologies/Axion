@@ -6,7 +6,7 @@ export const site = {
   short: "Axion",
   url: "https://your-domain.com", // TODO: real domain. Also set `site` in astro.config.mjs
   contact: {
-    email: "info@your-domain.com", // TODO: real email
+    email: "axionhealthcaretechnologies@gmail.com",
     phone: "", // TODO: e.g. "+880 ..." (leave empty to hide)
     whatsapp: "", // TODO: e.g. "https://wa.me/8801XXXXXXXXX" (leave empty to hide the floating button)
     address: "", // TODO: office address (leave empty to hide)
@@ -141,6 +141,7 @@ export const site = {
     heading: "Let’s modernise how your facility runs.",
     text: "Tell us about your clinic, hospital or care organisation. We’ll arrange a conversation and a demo around your needs.",
     button: "Request a Demo",
+    emailPrefix: "Prefer email? Write to us at",
   },
   about: {
     seo: {
@@ -179,6 +180,7 @@ export const site = {
       heading: "Let’s talk about your facility.",
       text: "Get in touch and we’ll arrange a conversation around your needs and goals.",
       button: "Get in Touch",
+      emailPrefix: "Prefer email? Write to us at",
     },
   },
   footer: {
